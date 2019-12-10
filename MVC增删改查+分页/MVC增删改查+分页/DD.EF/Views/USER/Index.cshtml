@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DD.dal.Login_Info>
+
+@{
+    //引用模板页 引用外部JS等文件
+    Layout = "~/Views/USER/_Layout.cshtml";
+
+}
+@section styles{
+    <style>
+        h2 {
+            color: aqua;
+        }
+    </style>
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+   <link href="~/JS/bootstrap.css" rel="stylesheet" />
+    <link href="~/JS/paging.css" rel="stylesheet" />
+</head>
+<body>
+
+    <h2>全表查询</h2>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPwd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usersex)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Usertime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Useraddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roleid)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserPwd)
+                </td>
+                <td>
+                    @(item.Usersex == 0 ? "男" : "女")
+                    @*@Html.DisplayFor(modelItem => item.Usersex)*@
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usertime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Useraddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rolename)
+
+                </td>
+                <td>
+                    @Html.ActionLink("编辑", "Update", new { id = item.UserId }) |
+                    @Html.ActionLink("详情", "Details", new { id = item.UserId }) |
+                    @Html.ActionLink("删除", "Delete", new { id = item.UserId })
+                    @Html.ActionLink("添加", "Create", new { id = item.UserId })
+                </td>
+            </tr>
+        }
+
+    </table>
+    @section script{
+        @*<script>
+            $(function () {
+                alert("要飞");
+            })
+        </script>*@
+    }
+</body>
+
+</html>
