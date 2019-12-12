@@ -33,3 +33,15 @@ D:\实训中心\MVC增删改查+分页\MVC增删改查+分页\DD.dal\obj\Debug\D
 D:\实训中心\MVC增删改查+分页\MVC增删改查+分页\DD.dal\obj\Debug\DD.dal.csproj.CopyComplete
 D:\实训中心\MVC增删改查+分页\MVC增删改查+分页\DD.dal\obj\Debug\DD.dal.dll
 D:\实训中心\MVC增删改查+分页\MVC增删改查+分页\DD.dal\obj\Debug\DD.dal.pdb
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\bin\Debug\DD.dal.dll.config
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\bin\Debug\DD.dal.dll
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\bin\Debug\DD.dal.pdb
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\bin\Debug\EntityFramework.dll
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\bin\Debug\EntityFramework.xml
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\obj\Debug\DD.dal.csprojAssemblyReference.cache
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\obj\Debug\DD.dal.csproj.CoreCompileInputs.cache
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\obj\Debug\DD.dal.csproj.CopyComplete
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\obj\Debug\DD.dal.dll
+C:\Users\aa\Desktop\ZXLY2\MVC增删改查+分页\MVC增删改查+分页\DD.dal\obj\Debug\DD.dal.pdb
