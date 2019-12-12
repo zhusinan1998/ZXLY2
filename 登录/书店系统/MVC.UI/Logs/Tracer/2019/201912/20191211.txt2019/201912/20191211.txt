@@ -1,0 +1,21 @@
+
+记录时间：2019-12-11 15:31:46,676 
+线程ID:[148] 
+日志级别：  INFO  
+出错类：Logger property: [(null)] - 
+错误描述：{"Borrowing_records":[],"Sales_list":[],"Id":1,"Name":"admin","Pwd":"admin","sex":1,"Tel":213456,"Email":"123@qq.com","shenfen":"410622198203028521","addre":"北京","Roles":1}登录
+ 
+
+记录时间：2019-12-11 18:54:55,841 
+线程ID:[117] 
+日志级别：  INFO  
+出错类：Logger property: [(null)] - 
+错误描述：{"Borrowing_records":[],"Sales_list":[],"Id":1,"Name":"admin","Pwd":"admin","sex":1,"Tel":213456,"Email":"123@qq.com","shenfen":"410622198203028521","addre":"北京","Roles":1}登录
+ 
+
+记录时间：2019-12-11 20:16:19,612 
+线程ID:[11] 
+日志级别：  INFO  
+出错类：Logger property: [(null)] - 
+错误描述：admin登录
+ 

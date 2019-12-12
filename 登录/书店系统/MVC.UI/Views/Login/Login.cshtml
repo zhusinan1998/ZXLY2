@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/_LayoutPage1.cshtml";
+}
+@section styles{}
+
+
+<input id="Text1" type="text" />
+<input id="Text2" type="text" />
+<input id="Button1" type="button" value="登录" />
+<input id="Button2" type="button" value="注册" />
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">注册用户</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <td>
+                            
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+            $("#Button1").click(function () {
+                var id = $("#Text1").val();
+                var password = $("#Text2").val();
+                $.ajax({
+                    url: "/Login/seluser",
+                    dateType: "json",
+                    type: "post",
+                    data: { "id": id, "name": password },
+                    success: function (refult) {
+                        if (refult == 0) {
+                            alert("用户名或密码有误！");
+                        } else if (refult.Data.data != null) {
+                            window.location.href = "/Main/Index"
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+}
