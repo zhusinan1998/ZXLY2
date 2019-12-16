@@ -11,15 +11,12 @@ namespace ZXLY.BOOK.Controllers
         // GET: BookStore
         public ActionResult Index()
         {
-            if (System.Web.HttpContext.Current.Session["user"] == null)
-            {
-                return RedirectToAction("Index", "Lofin");
-            }
-            else
-            {
-                return View();
-            }
-
+            ViewBag.name = System.Web.HttpContext.Current.Session["user"].ToString();
+            return View();
+        }
+        public ActionResult UserIndex() {
+            ViewBag.name = System.Web.HttpContext.Current.Session["user"].ToString();
+            return View();
         }
     }
 }
