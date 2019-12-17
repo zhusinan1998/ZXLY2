@@ -138,7 +138,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="comm\DeluxeUser.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Fliter\CustomAuthenticationFilter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -158,6 +160,7 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Main\Index.cshtml" />
     <Content Include="log4net.config" />
+    <Content Include="Views\File\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

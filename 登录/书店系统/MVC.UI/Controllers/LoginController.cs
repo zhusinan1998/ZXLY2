@@ -31,9 +31,9 @@ namespace MVC.UI.Controllers
             }else
             {
                 string json = JsonConvert.SerializeObject(user);
-                System.Web.HttpContext.Current.Session["user"] = json;
-                //HttpCookie cookie = new HttpCookie("name", Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(json)));
-                //Response.Cookies.Add(cookie);
+                //System.Web.HttpContext.Current.Session["user"] = json/*;*/
+                HttpCookie cookie = new HttpCookie("name", Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(json)));
+                Response.Cookies.Add(cookie);
                 jsonResult.Data = new { data = user, state = "200" };
                 LogHelper.Default.WriteInfo(user.Name+"登录");
                 return Json(jsonResult,JsonRequestBehavior.AllowGet);

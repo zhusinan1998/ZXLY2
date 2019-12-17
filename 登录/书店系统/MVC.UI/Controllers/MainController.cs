@@ -11,14 +11,14 @@ namespace MVC.UI.Controllers
         // GET: Main
         public ActionResult Index()
         {
-            if (System.Web.HttpContext.Current.Session["user"] == null)
-            {
-                return RedirectToAction("Login","Login");
+            //if (System.Web.HttpContext.Current.Session["user"] == null)
+            //{
+            //    return RedirectToAction("Login","Login");
 
-            }else
-            {
+            //}else
+            //{
                 return View();
-            }
+            ////}
             
         }
     }
