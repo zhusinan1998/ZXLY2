@@ -2,8 +2,125 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/_LayoutPage1.cshtml";
+
 }
 
-<h2>欢迎登录！</h2>
+<h2>Index</h2>
+<input id="Text1" type="text" />
+<input id="Text2" type="text" />
+<input id="Button1" type="button" value="查询" />
+<table id="ListTb" class="table table-bordered">
+    <tr>
+        <th>
+            书籍编号
+        </th>
+        <th>
+            书籍名称
+        </th>
+        <th>
+            书籍类型
+        </th>
+        <th>
+            上架时间
+        </th>
+        <th>
+            借阅价格/月
+        </th>
+        <th>
+            单价
+        </th>
+        <th>
+            库存
+        </th>
+    </tr>
+</table>
+<div>
+
+
+    <script id="dataList" type="text/x-jquery-tmpl">
+        {{each Data}}
+        <tr>
+            <td>
+                ${Bid}
+            </td>
+            <td>
+                ${Title}
+            </td>
+            <td>
+                ${Btid}
+            </td>
+            <td>
+                ${Warehousing}
+            </td>
+            <td>
+                ${Borrowing_price}
+            </td>
+            <td>
+                ${Unit_Price}
+            </td>
+            <td>
+                ${Stock}
+            </td>
+            <td>
+                <input id="Button1" type="button" value="button" />
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+</div>
+@section scripts{
+    <script src="~/scripts/jquery.tmpl.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var form = $(this);
+            $.ajax({
+                url: "/Main/sel",
+                data: {},
+                dataType: "json",
+                type: "post",
+                success: function (refult) {
+                    if (refult != null) {
+                        for (var i = 0; i < refult.Data.length; i++) {
+                            $("#ListTb").append("<tr><td>" + refult.Data[i].Bid +
+                                "</td><td>" + refult.Data[i].Title + "</td><td>" +
+                                refult.Data[i].Btid + "</td><td>" + refult.Data[i].Warehousing +
+                                "</td><td>" + refult.Data[i].Borrowing_price + "</td><td>" + refult.Data[i].Unit_Price +
+                                "</td><td>" + refult.Data[i].Stock + "</td><tr>");
+                        }
+                    }
+                }
+            })
+            $("#Button1").click(function () {
+                alert(1)
+                var id = $("#Text1").val();
+                if (id == "") {
+                    id = 0;
+                }
+                var name = $("#Text2").val();
+                $.ajax({
+                    url: "/Main/sel",
+                    data: {
+                        "id": id,
+                        "name": name
+                    },
+                    dataType: "json",
+                    type: "post",
+                    success: function (refult) {
+                        $("#ListTb tr:gt(0)").remove();
+                        for(var i = 0; i < refult.Data.length; i++) {
+                            $("#ListTb").append("<tr><td>" + refult.Data[i].Bid +
+                                    "</td><td>" + refult.Data[i].Title + "</td><td>" +
+                                    refult.Data[i].Btid + "</td><td>" + refult.Data[i].Warehousing +
+                                    "</td><td>" + refult.Data[i].Borrowing_price + "</td><td>" + refult.Data[i].Unit_Price +
+                                    "</td><td>" + refult.Data[i].Stock + "</td><tr>");
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+}
+
+
 
 

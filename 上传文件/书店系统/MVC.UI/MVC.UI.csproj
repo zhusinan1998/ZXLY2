@@ -175,9 +175,9 @@
     </Content>
     <Content Include="Views\_LayoutPage1.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
-    <Content Include="Views\Main\Index.cshtml" />
     <Content Include="log4net.config" />
     <Content Include="Views\File\Index.cshtml" />
+    <Content Include="Views\Main\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

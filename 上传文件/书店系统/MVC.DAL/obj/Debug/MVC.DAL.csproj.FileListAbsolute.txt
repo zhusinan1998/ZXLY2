@@ -39,3 +39,16 @@ C:\Users\13409061\Desktop\登录\书店系统\MVC.DAL\bin\Debug\Newtonsoft.Json.
 C:\Users\13409061\Desktop\登录\书店系统\MVC.DAL\obj\Debug\MVC.DAL.dll
 C:\Users\13409061\Desktop\登录\书店系统\MVC.DAL\obj\Debug\MVC.DAL.pdb
 C:\Users\13409061\Desktop\登录\书店系统\MVC.DAL\obj\Debug\MVC.DAL.csprojResolveAssemblyReference.cache
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\MVC.DAL.dll.config
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\MVC.DAL.dll
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\MVC.DAL.pdb
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\EntityFramework.dll
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\log4net.dll
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\Newtonsoft.Json.dll
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\EntityFramework.xml
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\log4net.xml
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\bin\Debug\Newtonsoft.Json.xml
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\obj\Debug\MVC.DAL.dll
+C:\Users\13409061\Desktop\上传文件\书店系统\MVC.DAL\obj\Debug\MVC.DAL.pdb

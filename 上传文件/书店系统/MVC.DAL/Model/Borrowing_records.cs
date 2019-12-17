@@ -18,9 +18,7 @@ namespace MVC.DAL
         public DateTime Return_time { get; set; }
         public string Return_timestring()
         {
-            get{
-                return Return_time.ToString("yyyy-MM-dd");
-            };
+            return Return_time.ToString("yyyy-MM-dd");
         }
 
         public virtual User_info User_info { get; set; }
