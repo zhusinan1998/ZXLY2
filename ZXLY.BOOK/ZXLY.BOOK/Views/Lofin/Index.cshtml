@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>书店</title>
+    <script src="~/LoginStyle/jquery-3.3.1.js"></script>
+    <link href="~/LoginStyle/style.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
+    @*<script src="/demos/googlegg.js"></script> onClick="cambiar_login()"*@
+</head>
+<body>
+    <div class="cotn_principal">
+        <div class="cont_centrar" style="margin-top:150px">
+            <div class="cont_login">
+                <div class="cont_info_log_sign_up">
+                    <div class="col_md_login">
+                        <div class="cont_ba_opcitiy">
+                            <h2>登录</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur.</p>
+                            <button class="btn_login" onClick="cambiar_login()">登录</button>
+                        </div>
+                    </div>
+                    <div class="col_md_sign_up">
+                        <div class="cont_ba_opcitiy">
+                            <h2>注册</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur.</p>
+                            <button class="btn_sign_up" onClick="cambiar_sign_up()">注册</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cont_back_info">
+                    <div class="cont_img_back_grey"> <img src="~/LoginStyle/po.jpg" alt="" /> </div>
+                </div>
+                <div class="cont_forms">
+                    <div class="cont_img_back_"> <img src="~/LoginStyle/po.jpg" alt="" /> </div>
+                    <div class="cont_form_login">
+                        <a href="#" onClick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+                        <h2>LOGIN</h2>
+                        <input id="zhanghao" type="text" placeholder="账号" />
+                        <input id="mima" type="password" placeholder="密码" />
+                        <button id="denglu" class="btn_login">提交</button>
+                    </div>
+                    <div class="cont_form_sign_up">
+                        <a href="#" onClick="ocultar_login_sign_up()"><i class="material-icons">&#xE5C4;</i></a>
+                        <h2>SIGN UP</h2>
+                        <input type="text" id="Name" placeholder="姓名" />
+                        <input type="password" id="Pwd" placeholder="密码" /><br />
+                        <div id="wrap">
+                            <input id="Radio1" name="sex" type="radio" checked />男
+                            <input id="Radio1" name="sex" type="radio" style="margin-left:50px;margin-top:10px" />女
+                        </div>
+                        <input type="text" id="Tel" placeholder="手机号" />
+                        <input type="text" id="Email" placeholder="邮箱" />
+                        <input type="text" id="shenfen" placeholder="身份证号" />
+                        <input type="text" id="addre" placeholder="住址" />
+                        <button id="zc" class="btn_sign_up" onClick="cambiar_sign_up()">提交</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/LoginStyle/jquery-3.3.1.js"></script>
+    <script src="~/LoginStyle/index.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#denglu").click(function () {
+                var id = $("#zhanghao").val();
+                var password = $("#mima").val();
+                $.ajax({
+                    url: "/Lofin/login",
+                    data: { "id": id, "password": password },
+                    dataType: "json",
+                    type: "post",
+                    success: function (refult) {
+                        if (refult == 0) {
+                            alert("账号或密码不正确！");
+                        } else if (refult.Data.data != null) {
+                            if (refult.Data.data.Roles == 1) {
+                                window.location.pathname = "BookStore/Index";
+                            } else {
+                                window.location.pathname = "";
+                            }
+                           
+                        }
+                    }
+                })
+            })
+            $("#zc").click(function () {
+                var Name = $("#Name").val();
+                var Pwd = $("#Pwd").val();
+                var Tel = $("#Tel").val();
+                var Email = $("#Email").val();
+                var shenfen = $("#shenfen").val();
+                var addre = $("#addre").val();
+                var Sex = $('#wrap input[name="sex"]:checked ').val();
+                var Roles = 2;
+                $.ajax({
+                    url: "/Lofin/Indexindert",
+                    type: "post",
+                    data: { "Name": Name, "Pwd": Pwd, "Sex": Sex, "Tel": Tel, "Email": Email, "shenfen": shenfen, "addre": addre, "Roles": Roles },
+                    dataType: "json",
+                    success: function (result) {
+                        alert("您的账号为：" + result.data);
+                        document.querySelector('.cont_forms').className = "cont_forms cont_forms_active_login";
+                        document.querySelector('.cont_form_login').style.display = "block";
+                        document.querySelector('.cont_form_sign_up').style.opacity = "0";
+                        setTimeout(function () { document.querySelector('.cont_form_login').style.opacity = "1"; }, 400);
+                        setTimeout(function () {
+                            document.querySelector('.cont_form_sign_up').style.display = "none";
+                        }, 200);
+                        $("#zhanghao").val(result.data);
+                    },
+                    error: function () {
+                        alert("注册失败")
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>
+
+
