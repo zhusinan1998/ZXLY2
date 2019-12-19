@@ -82,9 +82,9 @@
                             alert("账号或密码不正确！");
                         } else if (refult.Data.data != null) {
                             if (refult.Data.data.Roles == 1) {
-                                window.location.pathname = "BookStore/Index";
+                                window.location.pathname = "/BookStore/Index";
                             } else {
-                                window.location.pathname = "";
+                                window.location.pathname = "/BookStore/UserIndex";
                             }
                            
                         }

@@ -33,5 +33,36 @@ namespace ZXLY_DAL
             User_info user = model.User_info.FirstOrDefault(r => r.Name == info.Name);
             return user.Id;
         }
+        public List<Book_information> Select(string Title = "", int Btid = 0)
+        {
+            Model1 model = new Model1();
+            List<Book_information> list = new List<Book_information>();
+            if (Title == "" && Btid == 0)
+            {
+                list = model.Book_information.ToList();
+                list = model.Database.SqlQuery<Book_information>
+                  ("select Book_type.Btid,Book_information.Bid,Book_information.Title,Book_information.Warehousing,Book_information.Borrowing_price,Book_information.Unit_Price,Book_information.Stock,Book_information.Bdalate from Book_type,Book_information where Book_type.Btid = Book_information.Btid and Bdalate=1").ToList();
+            }
+            else
+            if (Btid == 0)
+            {
+                list = model.Database.SqlQuery<Book_information>
+                   ("select Book_type.Btid,Book_information.Bid,Book_information.Title,Book_information.Warehousing,Book_information.Borrowing_price,Book_information.Unit_Price,Book_information.Stock,Book_information.Bdalate from Book_type,Book_information where Book_type.Btid = Book_information.Btid and Title like '%" + Title + "%' and Bdalate=1").ToList();
+            }
+            else
+            if (Title == "")
+            {
+                list = model.Database.SqlQuery<Book_information>
+                   ("select Book_type.Btid,Book_information.Bid,Book_information.Title,Book_information.Warehousing,Book_information.Borrowing_price,Book_information.Unit_Price,Book_information.Stock,Book_information.Bdalate from Book_type,Book_information where Book_type.Btid = Book_information.Btid  and Book_type.Btid=" + Btid + " and Bdalate=1").ToList();
+            }
+            else
+            {
+                list = model.Database.SqlQuery<Book_information>
+                   ("select Book_type.Btid,Book_information.Bid,Book_information.Title,Book_information.Warehousing,Book_information.Borrowing_price,Book_information.Unit_Price,Book_information.Stock,Book_information.Bdalate from Book_type,Book_information where Book_type.Btid = Book_information.Btid and Title like '%" + Title + "%' and Book_type.Btid=" + Btid + " and Bdalate=1").ToList();
+            }
+            return list;
+        }
+
+
     }
 }

@@ -17,6 +17,6 @@ namespace ZXLY_DAL
 
         public DateTime Return_time { get; set; }
 
-        public virtual User_info User_info { get; set; }
+        //public virtual User_info User_info { get; set; }
     }
 }

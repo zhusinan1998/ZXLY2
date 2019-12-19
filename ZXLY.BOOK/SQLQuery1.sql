@@ -112,7 +112,7 @@ insert into Sales_list values ('2','2','2012-11-11')
 insert into Sales_list values ('3','2','2012-11-11')
 
 --角色表查询
-select * from User_info
+select * from User_info where Id=2 and Pwd='123456'
 --类型表查询
 select * from Book_type
 --书籍信息表查询

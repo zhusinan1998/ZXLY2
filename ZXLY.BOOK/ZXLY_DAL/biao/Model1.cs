@@ -24,10 +24,10 @@ namespace ZXLY_DAL
                 .Property(e => e.Title)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Book_information>()
-                .HasMany(e => e.Sales_list)
-                .WithRequired(e => e.Book_information)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Book_information>()
+            //    .HasMany(e => e.Sales_list)
+            //    .WithRequired(e => e.Book_information)
+            //    .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Book_type>()
                 .Property(e => e.Btype)
@@ -53,15 +53,15 @@ namespace ZXLY_DAL
                 .Property(e => e.addre)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<User_info>()
-                .HasMany(e => e.Borrowing_records)
-                .WithRequired(e => e.User_info)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<User_info>()
+            //    .HasMany(e => e.Borrowing_records)
+            //    .WithRequired(e => e.User_info)
+            //    .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<User_info>()
-                .HasMany(e => e.Sales_list)
-                .WithRequired(e => e.User_info)
-                .WillCascadeOnDelete(false);
+            //modelBuilder.Entity<User_info>()
+            //    .HasMany(e => e.Sales_list)
+            //    .WithRequired(e => e.User_info)
+            //    .WillCascadeOnDelete(false);
         }
     }
 }

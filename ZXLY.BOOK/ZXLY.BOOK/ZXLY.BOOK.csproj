@@ -50,10 +50,16 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="HPIT.Data.Core">
+      <HintPath>..\HPIT.Data.Core.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -105,6 +111,52 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="HTstyle\css\bootstrap-theme.min.css" />
+    <Content Include="HTstyle\css\bootstrap.css" />
+    <Content Include="HTstyle\css\bootstrap.min.css" />
+    <Content Include="HTstyle\css\common.css" />
+    <Content Include="HTstyle\css\commonCopy.css" />
+    <Content Include="HTstyle\css\flat-ui.min.css" />
+    <Content Include="HTstyle\css\jquery-ui.css" />
+    <Content Include="HTstyle\css\jquery.nouislider.css" />
+    <Content Include="HTstyle\css\jquery.nouislider.min.css" />
+    <Content Include="HTstyle\css\slide.css" />
+    <Content Include="HTstyle\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="HTstyle\fonts\lato\lato-black.svg" />
+    <Content Include="HTstyle\fonts\lato\lato-bold.svg" />
+    <Content Include="HTstyle\fonts\lato\lato-bolditalic.svg" />
+    <Content Include="HTstyle\fonts\lato\lato-italic.svg" />
+    <Content Include="HTstyle\fonts\lato\lato-light.svg" />
+    <Content Include="HTstyle\fonts\lato\lato-regular.svg" />
+    <Content Include="HTstyle\images\captchaCode.jpg" />
+    <Content Include="HTstyle\images\circle.png" />
+    <Content Include="HTstyle\images\icon_card.png" />
+    <Content Include="HTstyle\images\icon_card_grey.png" />
+    <Content Include="HTstyle\images\icon_change.png" />
+    <Content Include="HTstyle\images\icon_change_grey.png" />
+    <Content Include="HTstyle\images\icon_char.png" />
+    <Content Include="HTstyle\images\icon_chara.png" />
+    <Content Include="HTstyle\images\icon_chara_grey.png" />
+    <Content Include="HTstyle\images\icon_char_grey.png" />
+    <Content Include="HTstyle\images\icon_house.png" />
+    <Content Include="HTstyle\images\icon_house_grey.png" />
+    <Content Include="HTstyle\images\icon_rule.png" />
+    <Content Include="HTstyle\images\icon_rule_grey.png" />
+    <Content Include="HTstyle\images\icon_source.png" />
+    <Content Include="HTstyle\images\icon_source_grey.png" />
+    <Content Include="HTstyle\images\icon_user.png" />
+    <Content Include="HTstyle\images\icon_user_grey.png" />
+    <Content Include="HTstyle\images\logo.png" />
+    <Content Include="HTstyle\images\progress02.png" />
+    <Content Include="HTstyle\jquery.cookie.js" />
+    <Content Include="HTstyle\js\bootstrap.min.js" />
+    <Content Include="HTstyle\js\html5.js" />
+    <Content Include="HTstyle\js\jquery-ui.js" />
+    <Content Include="HTstyle\js\jquery.min.js" />
+    <Content Include="HTstyle\js\jquery.nouislider.js" />
+    <Content Include="HTstyle\js\jquery.nouislider.min.js" />
+    <Content Include="HTstyle\js\respond.min.js" />
+    <Content Include="HTstyle\paging.css" />
     <Content Include="LoginStyle\index.js" />
     <Content Include="LoginStyle\jquery-3.3.1.js" />
     <Content Include="LoginStyle\po.jpg" />
@@ -112,16 +164,53 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="log4net.config" />
+    <Content Include="HTstyle\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="HTstyle\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="HTstyle\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="HTstyle\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="HTstyle\fonts\lato\lato-black.eot" />
+    <Content Include="HTstyle\fonts\lato\lato-black.ttf" />
+    <Content Include="HTstyle\fonts\lato\lato-black.woff" />
+    <Content Include="HTstyle\fonts\lato\lato-bold.eot" />
+    <Content Include="HTstyle\fonts\lato\lato-bold.ttf" />
+    <Content Include="HTstyle\fonts\lato\lato-bold.woff" />
+    <Content Include="HTstyle\fonts\lato\lato-bolditalic.eot" />
+    <Content Include="HTstyle\fonts\lato\lato-bolditalic.ttf" />
+    <Content Include="HTstyle\fonts\lato\lato-bolditalic.woff" />
+    <Content Include="HTstyle\fonts\lato\lato-italic.eot" />
+    <Content Include="HTstyle\fonts\lato\lato-italic.ttf" />
+    <Content Include="HTstyle\fonts\lato\lato-italic.woff" />
+    <Content Include="HTstyle\fonts\lato\lato-light.eot" />
+    <Content Include="HTstyle\fonts\lato\lato-light.ttf" />
+    <Content Include="HTstyle\fonts\lato\lato-light.woff" />
+    <Content Include="HTstyle\fonts\lato\lato-regular.eot" />
+    <Content Include="HTstyle\fonts\lato\lato-regular.ttf" />
+    <Content Include="HTstyle\fonts\lato\lato-regular.woff" />
+    <Content Include="HTstyle\images\Thumbs.db" />
+    <Content Include="chulichengxv\查询书籍.ashx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Echarts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.js" />
+    <Content Include="Scripts\jquery-3.3.1.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
+    <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\paging.js" />
     <Content Include="Web.config" />
     <Content Include="Views\BookStore\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="chulichengxv\查询书籍.ashx.cs">
+      <DependentUpon>查询书籍.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="comm\DeluxeUser.cs" />
     <Compile Include="Controllers\BookStoreController.cs" />
+    <Compile Include="Controllers\DeluxeJsonResult.cs" />
+    <Compile Include="Filter\CustomAuthenticationFilter.cs" />
     <Compile Include="Controllers\LofinController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -138,6 +227,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Lofin\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\BookStore\UserIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

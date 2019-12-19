@@ -11,7 +11,7 @@ namespace ZXLY_DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book_information()
         {
-            Sales_list = new HashSet<Sales_list>();
+            //Sales_list = new HashSet<Sales_list>();
         }
 
         [Key]
@@ -22,6 +22,24 @@ namespace ZXLY_DAL
         public string Title { get; set; }
 
         public int? Btid { get; set; }
+        public string BtidType
+        {
+            get
+            {
+                if (Btid == 1)
+                {
+                    return "小说";
+                }
+                else if (Btid == 2)
+                {
+                    return "文学";
+                }
+                else
+                {
+                    return "历史";
+                }
+            }
+        }
 
         public DateTime Warehousing { get; set; }
 
@@ -31,9 +49,9 @@ namespace ZXLY_DAL
 
         public int Stock { get; set; }
 
-        public virtual Book_type Book_type { get; set; }
+        //public virtual Book_type Book_type { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sales_list> Sales_list { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<Sales_list> Sales_list { get; set; }
     }
 }

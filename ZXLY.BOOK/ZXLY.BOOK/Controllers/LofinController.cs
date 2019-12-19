@@ -1,4 +1,5 @@
 ﻿using HPIT.Data.Core;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,7 +30,12 @@ namespace ZXLY.BOOK.Controllers
             }
             else
             {
-                System.Web.HttpContext.Current.Session["user"] = user;
+                string json = JsonConvert.SerializeObject(user);
+
+                HttpCookie cookie = new HttpCookie("name", Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(json)));
+                //HttpCookie cookie2 = new HttpCookie("name2", json);
+                Response.Cookies.Add(cookie);
+                System.Web.HttpContext.Current.Session["user"] = user.Name;
                 jsonResult.Data = new { data = user };
                 LogHelper.Default.WriteInfo(user.Name + "登录");
                 return Json(jsonResult, JsonRequestBehavior.AllowGet);
