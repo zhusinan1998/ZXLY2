@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "UserIndex";
     Layout = null;
+    //List<ZXLY_DAL.Model> list = Model;
 }
 
 <!doctype html>
@@ -14,7 +15,7 @@
     <meta name="keywords" content="左右结构项目 社交 占座 ">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="format-detection" content="telephone=no">
-    <title>Bootstrap左右结构响应式后台管理模板</title>
+    <title>书店</title>
     <link href="~/HTstyle/paging.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     @*<script src="~/Scripts/jquery-1.11.3.min.js"></script>*@
@@ -23,7 +24,42 @@
     <script src="~/HTstyle/jquery.cookie.js"></script>
     <script>
         $(function () {
-
+            $("#ListTb").on("click", "a", function () {
+                var id = $(this).attr("data-id");
+                var name = $(this).attr("class");
+                if (name == "goumai") {
+                    $.ajax({
+                        url: "/BookStore/gouwu",
+                        data: { "Bid": id },
+                        type: "post",
+                        dataType: "json",
+                        success: function (rest) {
+                            if (rest > 0) {
+                                alert("购买成功！")
+                                window.location.href = "/BookStore/UserIndex";
+                            } else {
+                                alert("购买失败！")
+                            }
+                        }
+                    })
+                }
+                if (name == "jieyue") {
+                    $.ajax({
+                        url: "/BookStore/jieyue",
+                        data: { "Bid": id },
+                        type: "post",
+                        dataType: "json",
+                        success: function (rest) {
+                            if (rest ==0) {
+                                alert("您的借阅已达上限！")
+                            } else if (rest.shu==1) {
+                                alert("借阅成功！，您的归还日期为：" + rest.data);
+                                window.location.href = "/BookStore/UserIndex";
+                            }
+                        }
+                    })
+                }
+            })
             var form = $(this);
             $.ajax({
                 url: "/BookStore/Select",
@@ -37,17 +73,14 @@
                             "</td><td>" + refult.Data[i].Title + "</td><td>" +
                             refult.Data[i].BtidType + "</td><td>" + refult.Data[i].Warehousing +
                             "</td><td>" + refult.Data[i].Borrowing_price + "</td><td>" + refult.Data[i].Unit_Price +
-                            "</td><td>" + refult.Data[i].Stock + "</td><tr>");
+                            "</td><td>" + refult.Data[i].Stock + "</td><td><a class='goumai' data-id=" + refult.Data[i].Bid + " href='#'>购买</a></td><td><a class='jieyue' data-id=" + refult.Data[i].Bid + " href='#'>借阅</a><tr>");
                     }
                 }
             })
             $("#Button1").click(function () {
                 //alert(1)
-                var id = $("#Text1").val();
-                if (id == "") {
-                    id = 0;
-                }
-                var name = $("#Text2").val();
+                var id = $("#Btid").val();
+                var name = $("#Title").val();
                 $.ajax({
                     url: "/BookStore/Select",
                     data: {
@@ -63,11 +96,12 @@
                                 "</td><td>" + refult.Data[i].Title + "</td><td>" +
                                 refult.Data[i].BtidType + "</td><td>" + refult.Data[i].Warehousing +
                                 "</td><td>" + refult.Data[i].Borrowing_price + "</td><td>" + refult.Data[i].Unit_Price +
-                                "</td><td>" + refult.Data[i].Stock + "</td><tr>");
+                                "</td><td>" + refult.Data[i].Stock + "</td><td><a class='goumai' data-id=" + refult.Data[i].Bid + " href='#'>购买</a><td><a class='jeiyue' data-id=" + refult.Data[i].Bid + " href='#'>借阅</a></td></tr>");
                         }
                     }
                 })
             })
+
             $(".meun-item").click(function () {
                 $(".meun-item").removeClass("meun-item-active");
                 $(this).addClass("meun-item-active");
@@ -135,6 +169,8 @@
 
             <div class="meun-item" href="#user" aria-controls="user" role="tab" data-toggle="tab"><img src="~/HTstyle/images/icon_user_grey.png">用户管理</div>
             <div class="meun-item" href="#chan" aria-controls="chan" role="tab" data-toggle="tab"><img src="~/HTstyle/images/icon_change_grey.png">修改密码</div>
+            <div class="meun-item" href="#goumai" aria-controls="chan" role="tab" data-toggle="tab"><img src="~/HTstyle/images/icon_chara_grey.png">我的购买</div>
+            <div class="meun-item" href="#jieyue" aria-controls="chan" role="tab" data-toggle="tab"><img src="~/HTstyle/images/icon_source_grey.png">我的借阅</div>
         </div>
         <!-- 右侧具体内容栏目 -->
         <div id="rightContent">
@@ -151,9 +187,17 @@
                             <div class="">
                                 <div class="box-body">
                                     <div class="row">
-                                        编号：<input id="Text1" type="text" />
-                                        标题：<input id="Text2" type="text" />
-                                        <input id="Button1" type="button" value="查询" />
+                                        <div style="margin:0 auto;width:500px">
+                                            书名：<input id="Title" type="text" /> 类型：
+                                            <select id="Btid" style="width: 80px;">
+                                                <option value="0">全部</option>
+                                                <option value="1">小说</option>
+                                                <option value="2">文学</option>
+                                                <option value="3">历史</option>
+                                            </select>
+                                            <input id="Button1" type="button" value="查询" />
+                                        </div>
+
                                         <table id="ListTb" class="table table-bordered">
                                             <tr>
                                                 <th>
@@ -177,39 +221,12 @@
                                                 <th>
                                                     库存
                                                 </th>
+                                                <th colspan="2" style="text-align:center">
+                                                    操作
+                                                </th>
                                             </tr>
                                         </table>
                                         <div class="pagebox" style="height:30px;" id="box"></div>
-                                        <script id="dataList" type="text/x-jquery-tmpl">
-                                            {{each Data}}
-                                            <tr>
-                                                <td>
-                                                    ${Bid}
-                                                </td>
-                                                <td>
-                                                    ${Title}
-                                                </td>
-                                                <td>
-                                                    ${BtidType}
-                                                </td>
-                                                <td>
-                                                    ${Warehousing}
-                                                </td>
-                                                <td>
-                                                    ${Borrowing_price}
-                                                </td>
-                                                <td>
-                                                    ${Unit_Price}
-                                                </td>
-                                                <td>
-                                                    ${Stock}
-                                                </td>
-                                                <td>
-                                                    <input id="Button1" type="button" value="button" />
-                                                </td>
-                                            </tr>
-                                            {{/each}}
-                                        </script>
                                     </div>
                                 </div>
                             </div>
@@ -687,7 +704,117 @@
                     </div>
 
                 </div>
-
+                <!--用户购买模块-->
+                <div role="tabpanel" id="goumai" class="tab-pane">
+                    <div style="margin-top:50px;margin:0 auto;width:340px">
+                        <h3>购买记录</h3>
+                    </div>
+                    <div>
+                        <table id="ListTbgouwu" class="table table-bordered">
+                            <tr>
+                                <th>
+                                    销售编号
+                                </th>
+                                <th>
+                                    书籍编号
+                                </th>
+                                <th>
+                                    购买人
+                                </th>
+                                <th>
+                                    书籍名称
+                                </th>
+                                <th>
+                                    书籍类型
+                                </th>
+                                <th>
+                                    购买时间
+                                </th>
+                                <th>
+                                    元/本
+                                </th>
+                            </tr>
+                        </table>
+                        <div class="pagebox1" style="height:30px;" id="box"></div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $.ajax({
+                                    url: "/BookStore/selSales_list",
+                                    data: {},
+                                    dataType: "json",
+                                    type: "post",
+                                    success: function (refult) {
+                                        $("#ListTbgouwu tr:gt(0)").remove();
+                                        for (var i = 0; i < refult.Data.length; i++) {
+                                            $("#ListTbgouwu").append("<tr><td>" + refult.Data[i].sales.Slid +
+                                                "</td><td>" + refult.Data[i].book.Bid + "</td><td>" + refult.Data[i].user.Name + "</td><td>" + refult.Data[i].book.Title + "</td><td>" +
+                                                refult.Data[i].book.BtidType + "</td><td>" + refult.Data[i].sales.purchase_time +
+                                                "</td><td>" + refult.Data[i].book.Unit_Price +
+                                                "</td><tr>");
+                                        }
+                                    }
+                                })
+                            })
+                        </script>
+                    </div>
+                </div>
+                <!--用户借阅模块-->
+                <div role="tabpanel" id="jieyue" class="tab-pane">
+                    <div style="margin-top:50px;margin:0 auto;width:340px">
+                        <h3>借阅记录</h3>
+                    </div>
+                    <div>
+                        <table id="ListTbjieyue" class="table table-bordered">
+                            <tr>
+                                <th>
+                                    借阅编号
+                                </th>
+                                <th>
+                                    书籍编号
+                                </th>
+                                <th>
+                                    借阅人
+                                </th>
+                                <th>
+                                    书籍名称
+                                </th>
+                                <th>
+                                    书籍类型
+                                </th>
+                                <th>
+                                    借出时间
+                                </th>
+                                <th>
+                                    归还时间
+                                </th>
+                                <th>
+                                    元/月
+                                </th>
+                            </tr>
+                        </table>
+                        <div class="pagebox1" style="height:30px;" id="box"></div>
+                        <script type="text/javascript">
+                            $(function () {
+                                $.ajax({
+                                    url: "/BookStore/selBorrowing_records",
+                                    data: {},
+                                    dataType: "json",
+                                    type: "post",
+                                    success: function (refult) {
+                                        $("#ListTbjieyue tr:gt(0)").remove();
+                                        for (var i = 0; i < refult.Data.length; i++) {
+                                            $("#ListTbjieyue").append("<tr><td>" + refult.Data[i].borrowing.Brid +
+                                                "</td><td>" + refult.Data[i].book.Bid + "</td><td>" + refult.Data[i].user.Name + "</td><td>" + refult.Data[i].book.Title + "</td><td>" +
+                                                refult.Data[i].book.BtidType + "</td><td>" + refult.Data[i].borrowing.Lend_time +
+                                                "</td><td>" + refult.Data[i].borrowing.Return_time + "</td><td>" + refult.Data[i].book.Borrowing_price +
+                                                "</td><tr>");
+                                        }
+                                    }
+                                })
+                            })
+                        </script>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

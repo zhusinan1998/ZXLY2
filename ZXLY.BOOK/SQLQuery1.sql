@@ -65,6 +65,7 @@ go
 create table Borrowing_records
 (
 	Brid int primary key identity(1,1),--借阅编号
+	Bid int references Book_information(Bid) not null,--书籍编号
 	Id int references User_info(Id) not null,--用户编号
 	Lend_time datetime default(getdate()) not null,--借出时间
 	Return_time datetime default(getdate()) not null --归还时间
@@ -102,14 +103,20 @@ insert into Book_information values('红楼梦','1','2019-05-05','5','50','10')
 insert into Book_information values('万历十五年','3','2019-05-05','5','40','10')
 
 --插入借阅表
-insert into Borrowing_records values('2','2019-11-06','2019-12-06')
-insert into Borrowing_records values('2','2019-11-06','2019-12-06')
-insert into Borrowing_records values('2','2019-11-06','2019-12-06')
+insert into Borrowing_records values(1,'2','2019-11-06','2019-12-06')
+insert into Borrowing_records values(2,'2','2019-11-06','2019-12-06')
+insert into Borrowing_records values(3,'2','2019-11-06','2019-12-06')
+insert into Borrowing_records values(1,'3','2019-11-06','2019-12-06')
+insert into Borrowing_records values(2,'3','2019-11-06','2019-12-06')
+insert into Borrowing_records values(3,'3','2019-11-06','2019-12-06')
 
 --插入销售表
 insert into Sales_list values ('1','2','2012-11-11')
 insert into Sales_list values ('2','2','2012-11-11')
 insert into Sales_list values ('3','2','2012-11-11')
+insert into Sales_list values ('1','3','2012-11-11')
+insert into Sales_list values ('2','3','2012-11-11')
+insert into Sales_list values ('3','3','2012-11-11')
 
 --角色表查询
 select * from User_info where Id=2 and Pwd='123456'
@@ -120,4 +127,7 @@ select * from Book_type,Book_information where Book_type.Btid = Book_information
 --借阅表查询
 select * from User_info,Borrowing_records where User_info.Id = Borrowing_records.Id
 --销售表查询
-select * from Book_information,Sales_list where Book_information.Bid = Sales_list.Bid
+select * from Book_information,Sales_list,User_info where Book_information.Bid = Sales_list.Bid and User_info.Id=Sales_list.Id
+select * from Sales_list
+select * from Borrowing_records
+update Borrowing_records set Id=3 where Brid= 18

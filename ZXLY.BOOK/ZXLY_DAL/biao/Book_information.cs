@@ -39,9 +39,9 @@ namespace ZXLY_DAL
                     return "ÀúÊ·";
                 }
             }
-        }
+}
 
-        public DateTime Warehousing { get; set; }
+public DateTime Warehousing { get; set; }
 
         public double Borrowing_price { get; set; }
 

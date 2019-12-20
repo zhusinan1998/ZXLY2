@@ -36,6 +36,7 @@ namespace ZXLY.BOOK.Controllers
                 //HttpCookie cookie2 = new HttpCookie("name2", json);
                 Response.Cookies.Add(cookie);
                 System.Web.HttpContext.Current.Session["user"] = user.Name;
+                Session["id"] = user.Id;
                 jsonResult.Data = new { data = user };
                 LogHelper.Default.WriteInfo(user.Name + "登录");
                 return Json(jsonResult, JsonRequestBehavior.AllowGet);

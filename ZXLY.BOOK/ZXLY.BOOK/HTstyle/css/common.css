@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 /*外层框架样式*/
 
@@ -47,7 +47,7 @@ body {
 	box-sizing: border-box;
 	float: left;
 	box-sizing: border-box;
-	padding-left: 200px;
+	padding-left: 230px;
 	overflow-y: overlay;
 	overflow-x: hidden;
 	/*background-color: #eff3f6;*/

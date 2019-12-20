@@ -12,7 +12,7 @@ namespace ZXLY_DAL
         public int Brid { get; set; }
 
         public int Id { get; set; }
-
+        public int Bid { get; set; }
         public DateTime Lend_time { get; set; }
 
         public DateTime Return_time { get; set; }
