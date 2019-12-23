@@ -120,6 +120,7 @@
     <Content Include="HTstyle\css\jquery-ui.css" />
     <Content Include="HTstyle\css\jquery.nouislider.css" />
     <Content Include="HTstyle\css\jquery.nouislider.min.css" />
+    <Content Include="HTstyle\css\paging.css" />
     <Content Include="HTstyle\css\slide.css" />
     <Content Include="HTstyle\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="HTstyle\fonts\lato\lato-black.svg" />
@@ -156,6 +157,7 @@
     <Content Include="HTstyle\js\jquery.nouislider.js" />
     <Content Include="HTstyle\js\jquery.nouislider.min.js" />
     <Content Include="HTstyle\js\respond.min.js" />
+    <Content Include="HTstyle\js\sortable.js" />
     <Content Include="HTstyle\paging.css" />
     <Content Include="LoginStyle\index.js" />
     <Content Include="LoginStyle\jquery-3.3.1.js" />
@@ -188,10 +190,7 @@
     <Content Include="HTstyle\fonts\lato\lato-regular.woff" />
     <Content Include="HTstyle\images\Thumbs.db" />
     <Content Include="chulichengxv\查询书籍.ashx" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Echarts.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\jquery-1.11.3.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -226,7 +225,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Lofin\Index.cshtml" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\BookStore\UserIndex.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

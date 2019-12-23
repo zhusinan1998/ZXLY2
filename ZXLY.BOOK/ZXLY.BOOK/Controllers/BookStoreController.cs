@@ -122,28 +122,37 @@ namespace ZXLY.BOOK.Controllers
             return new DeluxeJsonResult(new { Data = sel }, "yyyy-MM-dd");
         }
         /// <summary>
-        /// 添加销售记录
+        /// 添加购买记录
         /// </summary>
         /// <param name="Bid">书籍编号</param>
         /// <returns></returns>
         [HttpPost]
         public JsonResult gouwu(int Bid)
         {
+            Book book = new Book();
             int id = Convert.ToInt32(Session["id"]);
-            var time = DateTime.Now.ToString("yyyy-MM-dd");
-            Sales_list sales = new Sales_list()
+            Book_information bookinf =book.Select(Bid);
+            if (bookinf.Stock<=0)
             {
-                Bid = Bid,
-                Id = id,
-                purchase_time = Convert.ToDateTime(time)
-            };
-            if (Book.goumai(sales) > 0)
-            {
-                return Json(1, JsonRequestBehavior.AllowGet);
+                return Json(-1);
             }
             else
             {
-                return Json(0, JsonRequestBehavior.AllowGet);
+                var time = DateTime.Now.ToString("yyyy-MM-dd");
+                Sales_list sales = new Sales_list()
+                {
+                    Bid = Bid,
+                    Id = id,
+                    purchase_time = Convert.ToDateTime(time)
+                };
+                if (Book.goumai(sales) > 0)
+                {
+                    return Json(1, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(0, JsonRequestBehavior.AllowGet);
+                }
             }
         }
         [HttpPost]
@@ -154,34 +163,123 @@ namespace ZXLY.BOOK.Controllers
         /// <returns></returns>
         public JsonResult jieyue(int Bid)
         {
+            Book book = new Book();
             int id = Convert.ToInt32(Session["id"]);
             List<Borrowing_records> list = Book.bor(id);
-
-            var time = DateTime.Now;//.ToString("yyyy-MM-dd");
-            var time2 = time.AddDays(31).ToString("yyyy-MM-dd");
-            Borrowing_records bo = new Borrowing_records()
+            Book_information bookinf = book.Select(Bid);
+            if (bookinf.Stock <= 0)
             {
-                Bid = Bid,
-                Id = id,
-                Lend_time = Convert.ToDateTime(time.ToString("yyyy-MM-dd")),
-                Return_time = Convert.ToDateTime(time2)
-            };
-            if (list.Count > 9)
-            {
-                return Json(0);
+                return Json(-1);
             }
             else
             {
-                if (Book.jieyue(bo) > 0)
+                var time = DateTime.Now;//.ToString("yyyy-MM-dd");
+                var time2 = time.AddDays(31).ToString("yyyy-MM-dd");
+                Borrowing_records bo = new Borrowing_records()
                 {
-                    var json = new { data = time2,shu=1 };
-                    return Json(json, JsonRequestBehavior.AllowGet);
+                    Bid = Bid,
+                    Id = id,
+                    Lend_time = Convert.ToDateTime(time.ToString("yyyy-MM-dd")),
+                    Return_time = Convert.ToDateTime(time2)
+                };
+                if (list.Count > 9)
+                {
+                    return Json(0);
                 }
                 else
                 {
-                    return Json(2);
+                    if (Book.jieyue(bo) > 0)
+                    {
+                        var json = new { data = time2, shu = 1 };
+                        return Json(json, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(2);
+                    }
                 }
             }
+        }
+
+        [HttpPost]
+        /// <summary>
+        /// 根据id查询
+        /// </summary>
+        /// <param name="Bid"></param>
+        /// <returns></returns>
+        public JsonResult Selectid(int Bid)
+        {
+            Book bk = new Book();
+            Book_information id = bk.Selectid(Bid);
+            JsonResult json = new JsonResult();
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            //var json = new {  };
+            return new DeluxeJsonResult(new { data = id }, "yyyy-MM-dd");
+        }
+        //[HttpPost]
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public JsonResult Update(Book_information info)
+        {
+            Book bk = new Book();
+            int xg = bk.Update(info);
+            if (xg > 0)
+            {
+                return Json(1);
+            }
+            else
+            {
+                return Json(0);
+            }
+        }
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        public JsonResult Insert(Book_information info)
+        {
+
+            int tj = Book.Insert(info);
+            if (tj > 0)
+            {
+                return Json(tj);
+            }
+            else
+            {
+                return Json(0);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult sel(SearchModel<Book_information> searchmodel)
+        {
+            int total = 0;
+            //SearchModel<FileModel> search = new SearchModel<FileModel>();
+            var list =Book.selbookinfo(searchmodel, out total);
+            JsonResult json = new JsonResult();
+            //json.Data = new { Data = list };
+            json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            //return new DeluxeJsonResult(new { Data = list }, "yyyy-MM-dd HH: mm");
+            //var result = from book in list
+            //             select new
+            //             {
+            //                 Bid=book.Bid,
+            //                 Title=book.Title,
+            //                 Btid=book.Btid,
+            //                 Warehousing=book.Warehousing,
+            //                 Borrowing_price=book.Borrowing_price,
+            //                 Unit_Price=book.Unit_Price,
+            //                 Stock=book.Stock
+            //             };
+            //total = list.Count;
+            var totalPages = total % searchmodel.PageSize == 0 ? total / searchmodel.PageSize : total / searchmodel.PageSize + 1;
+            //var pagedata = list.Skip((searchmodel.PageIndex - 1) * searchmodel.PageSize).Take(searchmodel.PageSize);
+            return new DeluxeJsonResult(new { Data = list, Total = total, TotalPages = totalPages }, "yyyy-MM-dd HH:mm");
         }
     }
 }

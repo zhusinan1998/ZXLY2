@@ -48,6 +48,7 @@ public DateTime Warehousing { get; set; }
         public double Unit_Price { get; set; }
 
         public int Stock { get; set; }
+        public int Bdalate { get; set; }
 
         //public virtual Book_type Book_type { get; set; }
 

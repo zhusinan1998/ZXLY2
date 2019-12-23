@@ -18,9 +18,7 @@
     <title>书店</title>
     <link href="~/HTstyle/paging.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-3.3.1.js"></script>
-    @*<script src="~/Scripts/jquery-1.11.3.min.js"></script>*@
     <script src="~/HTstyle/js/bootstrap.min.js"></script>
-    @*<script src="~/HTstyle/js/jquery.min.js"></script>*@
     <script src="~/HTstyle/jquery.cookie.js"></script>
     <script>
         $(function () {
@@ -37,8 +35,10 @@
                             if (rest > 0) {
                                 alert("购买成功！")
                                 window.location.href = "/BookStore/UserIndex";
-                            } else {
+                            } else if (rest==0) {
                                 alert("购买失败！")
+                            } else if (rest == -1) {
+                                alert("该书书籍库存不足，请选择其他书籍！");
                             }
                         }
                     })
@@ -55,6 +55,8 @@
                             } else if (rest.shu==1) {
                                 alert("借阅成功！，您的归还日期为：" + rest.data);
                                 window.location.href = "/BookStore/UserIndex";
+                            } else if (rest == -1) {
+                                alert("该书书籍库存不足，请选择其他书籍！");
                             }
                         }
                     })
