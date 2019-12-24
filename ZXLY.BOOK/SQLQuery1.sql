@@ -132,3 +132,4 @@ select * from Sales_list
 select * from Borrowing_records
 update Borrowing_records set Id=3 where Brid= 18
 update Book_information set Stock=Stock-1 where Bid=6
+

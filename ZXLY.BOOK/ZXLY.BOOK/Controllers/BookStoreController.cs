@@ -7,6 +7,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ZXLY_DAL;
+using ZXLY_DAL.biao;
+
 namespace ZXLY.BOOK.Controllers
 {
     public class BookStoreController : Controller
@@ -256,11 +258,11 @@ namespace ZXLY.BOOK.Controllers
         }
 
         [HttpPost]
-        public JsonResult sel(SearchModel<Book_information> searchmodel)
+        public JsonResult sel(SearchModel<Book_information> searchmodel,int Btid=0, string Title = "")
         {
             int total = 0;
             //SearchModel<FileModel> search = new SearchModel<FileModel>();
-            var list =Book.selbookinfo(searchmodel, out total);
+            var list =Book.selbookinfo(searchmodel, out total,Btid, Title);
             JsonResult json = new JsonResult();
             //json.Data = new { Data = list };
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
@@ -281,5 +283,21 @@ namespace ZXLY.BOOK.Controllers
             //var pagedata = list.Skip((searchmodel.PageIndex - 1) * searchmodel.PageSize).Take(searchmodel.PageSize);
             return new DeluxeJsonResult(new { Data = list, Total = total, TotalPages = totalPages }, "yyyy-MM-dd HH:mm");
         }
+
+        public ActionResult Selectlexing(int Btid = 1)
+        {
+            Book cla = new Book();
+            List<infobook> info = cla.Selectleixing(Btid);
+            var result = from p in info
+                         select new
+                         {
+                             name = p.Title,
+                             value = p.Stock
+                         };
+            return Json(result);
+
+        }
+
+
     }
 }

@@ -4,6 +4,7 @@ namespace ZXLY_DAL
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
+    using ZXLY_DAL.biao;
 
     public partial class Model1 : DbContext
     {
@@ -17,6 +18,7 @@ namespace ZXLY_DAL
         public virtual DbSet<Borrowing_records> Borrowing_records { get; set; }
         public virtual DbSet<Sales_list> Sales_list { get; set; }
         public virtual DbSet<User_info> User_info { get; set; }
+         public virtual DbSet<infobook> infobook { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

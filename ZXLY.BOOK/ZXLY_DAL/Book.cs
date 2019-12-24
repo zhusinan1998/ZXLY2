@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using HPIT.Data.Core;
+using ZXLY_DAL.biao;
 
 namespace ZXLY_DAL
 {
@@ -71,6 +72,9 @@ namespace ZXLY_DAL
             }
             return list;
         }
+
+
+
         /// <summary>
         /// 查询一条书籍信息
         /// </summary>
@@ -174,18 +178,68 @@ namespace ZXLY_DAL
             model.Book_information.Add(book);
             return model.SaveChanges();
         }
-        public static object selbookinfo(SearchModel<Book_information> search, out int count)
+        public static object selbookinfo(SearchModel<Book_information> search, out int count, int Btid = 0, string Title = "")
         {
             GetPageListParameter<Book_information, int> bookinf = new GetPageListParameter<Book_information, int>();
             bookinf.isAsc = true;
             bookinf.orderByLambda = t => t.Bid;
             bookinf.pageIndex = search.PageIndex;
             bookinf.pageSize = search.PageSize;
-            bookinf.whereLambda = t => t.Bid != 0 && t.Bdalate==1;
+            if (Btid == 0 && Title == "")
+            {
+                bookinf.whereLambda = t => t.Bid != 0 && t.Bdalate == 1;
+            }
+            else if (Btid != 0 && Title != "")
+            {
+                bookinf.whereLambda = t => t.Btid == Btid && t.Bid != 0 && t.Title.Contains(Title) && t.Bdalate == 1;
+            }
+            else if (Btid == 0 && Title != "")
+            {
+                bookinf.whereLambda = t => t.Bid != 0 && t.Title.Contains(Title) && t.Bdalate == 1;
+            }
+            else
+            {
+                bookinf.whereLambda = t => t.Bid != 0 && t.Btid == Btid && t.Bdalate == 1;
+            }
+
+
             Model1 book = new Model1();
             DBBaseService baseserice = new DBBaseService(book);
             List<Book_information> list = baseserice.GetSimplePagedData<Book_information, int>(bookinf, out count);
             return list;
+        }
+
+        /// <summary>
+        /// 查询书籍信息
+        /// </summary>
+        /// <param name="Title"></param>
+        /// <param name="Btid"></param>
+        /// <returns></returns>
+        public List<infobook> Selectleixing(int Btid = 1)
+        {
+            Model1 model = new Model1();
+            List<infobook> list = new List<infobook>();
+            if (Btid == 1)
+            {
+                //list = model.Book_information.ToList();
+                list = model.Database.SqlQuery<infobook>
+                  ("select Book_information.Title,Book_information.Stock from Book_type,Book_information where Book_type.Btid = Book_information.Btid and Book_type.Btid=1 and Bdalate=1").ToList();
+            }
+            else
+            if (Btid == 2)
+            {
+                list = model.Database.SqlQuery<infobook>
+                     ("select Book_information.Title,Book_information.Stock from Book_type,Book_information where Book_type.Btid = Book_information.Btid and Book_type.Btid=2 and Bdalate=1").ToList();
+            }
+            else
+            {
+                list = model.Database.SqlQuery<infobook>
+                     ("select Book_information.Title,Book_information.Stock from Book_type,Book_information where Book_type.Btid = Book_information.Btid and Book_type.Btid=3 and Bdalate=1").ToList();
+
+
+            }
+            return list;
+
         }
 
     }

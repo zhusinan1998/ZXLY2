@@ -31,29 +31,29 @@
     <script src="~/Scripts/Echarts.js"></script>
     <script>
         $(function () {
+            var url="http://localhost:57317/";
             $("#ListTb").on("click", "a", function () {
                 var id = $(this).attr("data-id");
                 var name = $(this).attr("class");
                 if (name == "delete") {
                     $.ajax({
-                        url: "/BookStore/Delete",
+                        url: url +"/api/Books",
                         data: { "Bid": id },
-                        type: "post",
-                        dateType: "json",
+                        type: "Delete",
                         success: function (rest) {
                             if (rest > 0) {
-                                $.ajax({
-                                    url: "/BookStore/sel",
-                                    type: "post",
-                                    dataType: "json",
-                                    data: { "PageIndex": 0, "PageSize": 3 },
-                                    success: function (refult) {
-                                        if (refult != null) {
-                                            $("#ListTb tr:gt(0)").remove();
-                                            $("#dataList").tmpl(refult).appendTo('#ListTb');
-                                        }
-                                    }
-                                })
+                            //    $.ajax({
+                            //        url: "/BookStore/sel",
+                            //        type: "post",
+                            //        dataType: "json",
+                            //        data: { "PageIndex": 0, "PageSize": 3 },
+                            //        success: function (refult) {
+                            //            if (refult != null) {
+                            //                $("#ListTb tr:gt(0)").remove();
+                            //                $("#dataList").tmpl(refult).appendTo('#ListTb');
+                            //            }
+                            //        }
+                            //    })
                                 alert("删除成功！")
                             } else {
                                 alert("删除失败！")
@@ -66,7 +66,7 @@
                         url: "/BookStore/Selectid",
                         type: "post",
                         data: { "Bid": id },
-                        dateType: "json",
+                        dataType:"json",
                         success: function (refult) {
                             //alert(refult.data.Title);
                             $("#Bidname").val(refult.data.Bid);
@@ -89,22 +89,57 @@
                 //alert(1)
                 var id = $("#Btid").val();
                 var name = $("#Title").val();
+                //$.ajax({
+                //    url: "/BookStore/Select",
+                //    data: {
+                //        "Btid": id,
+                //        "Title": name
+                //    },
+                //    dataType: "json",
+                //    type: "post",
+                //    success: function (refult) {
+                //        $("#ListTb tr:gt(0)").remove();
+                //        for (var i = 0; i < refult.Data.length; i++) {
+                //            $("#ListTb").append("<tr><td>" + refult.Data[i].Bid +
+                //                "</td><td>" + refult.Data[i].Title + "</td><td>" +
+                //                refult.Data[i].BtidType + "</td><td>" + refult.Data[i].Warehousing +
+                //                "</td><td>" + refult.Data[i].Borrowing_price + "</td><td>" + refult.Data[i].Unit_Price +
+                //                "</td><td>" + refult.Data[i].Stock + "</td><td><a class='delete' data-id=" + refult.Data[i].Bid + " href='#'>删除</a></td><td><a class='xiugai' data-id=" + refult.Data[i].Bid + ">修改</a></td></tr>");
+                //        }
+                //    }
+                //})
                 $.ajax({
-                    url: "/BookStore/Select",
-                    data: {
-                        "Btid": id,
-                        "Title": name
-                    },
-                    dataType: "json",
+                    url: "/BookStore/sel",
                     type: "post",
-                    success: function (refult) {
-                        $("#ListTb tr:gt(0)").remove();
-                        for (var i = 0; i < refult.Data.length; i++) {
-                            $("#ListTb").append("<tr><td>" + refult.Data[i].Bid +
-                                "</td><td>" + refult.Data[i].Title + "</td><td>" +
-                                refult.Data[i].BtidType + "</td><td>" + refult.Data[i].Warehousing +
-                                "</td><td>" + refult.Data[i].Borrowing_price + "</td><td>" + refult.Data[i].Unit_Price +
-                                "</td><td>" + refult.Data[i].Stock + "</td><td><a class='delete' data-id=" + refult.Data[i].Bid + " href='#'>删除</a></td><td><a class='xiugai' data-id=" + refult.Data[i].Bid + ">修改</a></td></tr>");
+                    dataType: "json",
+                    data: { "PageIndex": 0, "PageSize": 3, "Btid": id, "Title": name },
+                    success: function (refult2) {
+                        if (refult2 != null) {
+                            $("#ListTb tr:gt(0)").remove();
+                            $("#dataList").tmpl(refult2).appendTo('#ListTb');
+
+                            var setTotalCount = refult2.Total;
+                            $('#box').paging({
+                                initPageNo: 1, // 初始页码
+                                totalPages: refult2.TotalPages, //总页数
+                                totalCount: '合计' + setTotalCount + '条数据', // 条目总数
+                                slideSpeed: 600, // 缓动速度。单位毫秒
+                                jump: true, //是否支持跳转
+                                callback: function (page) {
+                                    //回调函数
+                                    //alert(page);
+                                    $.ajax({
+                                        url: "/BookStore/sel",
+                                        type: "post",
+                                        dataType: "json",
+                                        data: { "PageIndex": page, "PageSize": 3, "Btid": id, "Title": name },
+                                        success: function (refult1) {
+                                            $("#ListTb tr:gt(0)").remove();
+                                            $("#dataList").tmpl(refult1).appendTo('#ListTb');
+                                        }
+                                    })
+                                }
+                            })
                         }
                     }
                 })
@@ -130,7 +165,7 @@
                     var Unit_Price = $("#Unit_Pricename").val();
                     var Stock = $("#Stockname").val();
                     $.ajax({
-                        url: "/BookStore/Insert",
+                        url: url + "/api/Books",
                         data: {
                             "Bid": Bid,
                             "Title": Title,
@@ -139,10 +174,10 @@
                             "Borrowing_price": Borrowing_price,
                             "Unit_Price": Unit_Price,
                             "Stock": Stock,
-                            "Bdalate":1
+                            "Bdalate": 1
                         },
                         dataType: "json",
-                        type: "post",
+                        type: "put",
                         success: function (result) {
                             if (result == 1) {
                                 $('#myModal').modal('toggle')
@@ -377,7 +412,7 @@
                                                         ${Title}
                                                     </td>
                                                     <td>
-                                                        ${Btid}
+                                                        ${BtidType}
                                                     </td>
                                                     <td>
                                                         ${Warehousing}
@@ -575,131 +610,110 @@
                 </div>
                 <!-- 柱状图模块 -->
                 <div role="tabpanel" class="tab-pane" id="regu" style="padding-top: 50px;">
+                    类型:<select id="Btids" style="width: 80px;">
+                        <option value="1">小说</option>
+                        <option value="2">文学</option>
+                        <option value="3">历史</option>
+                    </select>
                     <div id="main" style="width:600px;height:400px" class="data-div">
                         <script>
-                            $.ajax({
-                                url: "/BookStore/Select",
-                                type: "post",
-                                data: {},
-                                cache: false,
-                                //contentType: false, //必须
-                                //processData: false, //必须
-                                //dateType: "json",
-                                success: function (result) {
-                                    var objs = [];
-                                    var objs1 = [];
-                                    for (var i = 0; i < result.Data.length; i++) {
-                                        objs[i] = result.Data[i].Title;
-                                        objs1[i] = result.Data[i].Stock;
-                                    }
-                                    var myChart = echarts.init(document.getElementById('main'));
-                                    myChart.setOption({
-                                        xAxis: {
-                                            data: objs
-                                        },
-                                        yAxis: {},
+                            $("#Btids").change(function () {
 
-                                        series: [{
-                                            name: '库存',
-                                            type: 'bar',
-                                            data: objs1,
-                                        }]
-                                    })
-                                }, error: function () {
-                                }
+
+                                var Btid = $("#Btids").val();
+
+                                $.ajax({
+                                    url: "/BookStore/Selectlexing",
+                                    type: "post",
+                                    data: { "Btid": Btid },
+                                    cache: false,
+                                    //contentType: false, //必须
+                                    //processData: false, //必须
+                                    dateType: "json",
+                                    success: function (result) {
+                                        var objs = [];
+                                        var objs1 = [];
+                                        for (var i = 0; i < result.length; i++) {
+                                            objs[i] = result[i].name;
+                                            objs1[i] = result[i].value;
+                                        }
+                                        var myChart = echarts.init(document.getElementById('main'));
+                                        myChart.setOption({
+                                            xAxis: {
+                                                data: objs
+                                            },
+                                            yAxis: {},
+
+                                            series: [{
+                                                name: '库存',
+                                                type: 'bar',
+                                                data: objs1,
+                                            }]
+                                        })
+                                    }, error: function () {
+                                    }
+                                })
                             })
                         </script>
                     </div>
                     <div id="main1" style="width:600px;height:400px" class="data-div">
                         <script>
-                            var refult;
-                            $.ajax({
-                                url: "/BookStore/Select",
-                                type: "post",
-                                data: {},
-                                cache: false,
-                                success: function (result) {
-                                    var objs = [];
-                                    var objs1 = [];
-                                    for (var i = 0; i < result.Data.length; i++) {
-                                        objs[i] = result.Data[i].Title;
-                                        objs1[i] = result.Data[i].Stock;
-                                    }
-                                    refult = result;
-                                    var myChart1 = echarts.init(document.getElementById('main1'));
-                                    //var main= document.getElementById("main1")
-                                    myChart1.setOption({
-                                        backgroundColor: '#2c343c',
+                            $("#Btids").change(function () {
 
-                                        title: {
-                                            text: 'Customized Pie',
-                                            left: 'center',
-                                            top: 20,
-                                            textStyle: {
-                                                color: '#ccc'
-                                            }
-                                        },
+                                var Btid = $("#Btids").val();
+                                $.ajax({
+                                    url: "/BookStore/Selectlexing",
+                                    type: "post",
+                                    data: { "Btid": Btid },
+                                    cache: false,
+                                    success: function (result) {
 
-                                        tooltip: {
-                                            trigger: 'item',
-                                            formatter: "{a} <br />{b} : {c} ({d}%)"
-                                        },
-
-                                        visualMap: {
-                                            show: false,
-                                            min: 80,
-                                            max: 600,
-                                            inRange: {
-                                                colorLightness: [0, 1]
-                                            }
-                                        },
-                                        series: [
-                                            {
-                                                name: '访问来源',
-                                                type: 'pie',
-                                                radius: '55%',
-                                                center: ['50%', '50%'],
-                                                data: [
-                                                    { value: 350, name: '三国演义' },
-                                                    { value: 412, name: '水浒传' },
-                                                    { value: 520, name: '西游记' },
-                                                    { value: 423, name: '红楼梦' },
-                                                    { value: 500, name: '万历十五年' }],
-                                                roseType: 'radius',
-                                                label: {
-                                                    normal: {
-                                                        textStyle: {
-                                                            color: 'rgba(255, 255, 255, 0.3)'
+                                        var myChart1 = echarts.init(document.getElementById('main1'));
+                                      
+                                        var option = {
+                                            title: {
+                                                text: '访问省份比例图',
+                                                //subtext: '实时更新',
+                                                x: 'center'
+                                            },
+                                            tooltip: {
+                                                trigger: 'item',
+                                                formatter: "{a} <br/>{b} : {c} ({d}%)"
+                                            },
+                                            series: [
+                                                {
+                                                    name: '地区访问统计',
+                                                    type: 'pie',
+                                                    radius: '55%',
+                                                    center: ['40%', '50%'],
+                                                    data: eval(result),
+                                                    itemStyle: {
+                                                        emphasis: {
+                                                            shadowBlur: 10,
+                                                            shadowOffsetX: 0,
+                                                            shadowColor: 'rgba(0, 0, 0, 0.5)'
                                                         }
-                                                    }
-                                                },
-                                                labelLine: {
-                                                    normal: {
-                                                        lineStyle: {
-                                                            color: 'rgba(255, 255, 255, 0.3)'
+                                                    },
+                                                    itemStyle: {
+                                                        normal: {
+                                                            label: {
+                                                                show: true,
+                                                                //position:'inside',
+                                                                formatter: '{b} : {c} ({d}%)'
+                                                            }
                                                         },
-                                                        smooth: 0.2,
-                                                        length: 10,
-                                                        length2: 20
+                                                        labelLine: { show: true }
                                                     }
-                                                },
-                                                itemStyle: {
-                                                    normal: {
-                                                        color: '#c23531',
-                                                        shadowBlur: 200,
-                                                        shadowColor: 'rgba(0, 0, 0, for)'
-                                                    }
-                                                },
-
-                                                animationType: 'scale',
-                                                animationEasing: 'elasticOut',
-                                                animationDelay: function (idx) {
-                                                    return Math.random() * 200;
                                                 }
-                                            }
-                                        ]
-                                    });
-                                }
+                                            ]
+                                        };
+                                        myChart1.setOption(option);
+                                    },
+                                    error: function (errorMsg) {
+                                        alert("数据加载失败，请稍后重试!");
+                                    }
+
+                                })
                             })
                         </script>
                     </div>

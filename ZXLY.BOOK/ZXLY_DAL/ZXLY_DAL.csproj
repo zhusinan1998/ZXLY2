@@ -62,6 +62,7 @@
     <Compile Include="biao\Book_information.cs" />
     <Compile Include="biao\Book_type.cs" />
     <Compile Include="biao\Borrowing_records.cs" />
+    <Compile Include="biao\infobook.cs" />
     <Compile Include="Book.cs" />
     <Compile Include="biao\Model1.cs" />
     <Compile Include="fenye.cs" />

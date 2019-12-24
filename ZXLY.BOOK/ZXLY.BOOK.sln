@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZXLY.BOOK", "ZXLY.BOOK\ZXLY
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZXLY_DAL", "ZXLY_DAL\ZXLY_DAL.csproj", "{288B107C-75F0-45D2-8048-F74550C2D05B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZXLY.Api", "ZXLY.Api\ZXLY.Api.csproj", "{B3B8B4B9-DFDB-46C8-8410-02120697949D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{288B107C-75F0-45D2-8048-F74550C2D05B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{288B107C-75F0-45D2-8048-F74550C2D05B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{288B107C-75F0-45D2-8048-F74550C2D05B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3B8B4B9-DFDB-46C8-8410-02120697949D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3B8B4B9-DFDB-46C8-8410-02120697949D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3B8B4B9-DFDB-46C8-8410-02120697949D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3B8B4B9-DFDB-46C8-8410-02120697949D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
