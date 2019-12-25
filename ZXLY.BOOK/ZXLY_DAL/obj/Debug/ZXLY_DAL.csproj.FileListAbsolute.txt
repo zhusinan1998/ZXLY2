@@ -95,7 +95,6 @@ C:\Users\aa\Desktop\ZXLY1\ZXLY.BOOK\ZXLY_DAL\obj\Debug\ZXLY_DAL.csproj.CoreCompi
 C:\Users\aa\Desktop\ZXLY1\ZXLY.BOOK\ZXLY_DAL\obj\Debug\ZXLY_DAL.csproj.CopyComplete
 C:\Users\aa\Desktop\ZXLY1\ZXLY.BOOK\ZXLY_DAL\obj\Debug\ZXLY_DAL.dll
 C:\Users\aa\Desktop\ZXLY1\ZXLY.BOOK\ZXLY_DAL\obj\Debug\ZXLY_DAL.pdb
-C:\Users\aa\Desktop\ZXLY1\ZXLY.BOOK\ZXLY_DAL\obj\Debug\ZXLY_DAL.csprojAssemblyReference.cache
 G:\项目\定稿\新建文件夹\ZXLY.BOOK\ZXLY_DAL\bin\Debug\ZXLY_DAL.dll.config
 G:\项目\定稿\新建文件夹\ZXLY.BOOK\ZXLY_DAL\bin\Debug\ZXLY_DAL.dll
 G:\项目\定稿\新建文件夹\ZXLY.BOOK\ZXLY_DAL\bin\Debug\ZXLY_DAL.pdb

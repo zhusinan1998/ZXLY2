@@ -31,29 +31,29 @@
     <script src="~/Scripts/Echarts.js"></script>
     <script>
         $(function () {
-            var url="http://localhost:57317/";
+            var url = "http://localhost:57317";
             $("#ListTb").on("click", "a", function () {
                 var id = $(this).attr("data-id");
                 var name = $(this).attr("class");
                 if (name == "delete") {
                     $.ajax({
-                        url: url +"/api/Books",
+                        url: url + "/api/Books",
                         data: { "Bid": id },
                         type: "Delete",
                         success: function (rest) {
                             if (rest > 0) {
-                            //    $.ajax({
-                            //        url: "/BookStore/sel",
-                            //        type: "post",
-                            //        dataType: "json",
-                            //        data: { "PageIndex": 0, "PageSize": 3 },
-                            //        success: function (refult) {
-                            //            if (refult != null) {
-                            //                $("#ListTb tr:gt(0)").remove();
-                            //                $("#dataList").tmpl(refult).appendTo('#ListTb');
-                            //            }
-                            //        }
-                            //    })
+                                //    $.ajax({
+                                //        url: "/BookStore/sel",
+                                //        type: "post",
+                                //        dataType: "json",
+                                //        data: { "PageIndex": 0, "PageSize": 3 },
+                                //        success: function (refult) {
+                                //            if (refult != null) {
+                                //                $("#ListTb tr:gt(0)").remove();
+                                //                $("#dataList").tmpl(refult).appendTo('#ListTb');
+                                //            }
+                                //        }
+                                //    })
                                 alert("删除成功！")
                             } else {
                                 alert("删除失败！")
@@ -66,7 +66,7 @@
                         url: "/BookStore/Selectid",
                         type: "post",
                         data: { "Bid": id },
-                        dataType:"json",
+                        dataType: "json",
                         success: function (refult) {
                             //alert(refult.data.Title);
                             $("#Bidname").val(refult.data.Bid);
@@ -176,8 +176,8 @@
                             "Stock": Stock,
                             "Bdalate": 1
                         },
-                        dataType: "json",
-                        type: "put",
+                        //dataType: "json",
+                        type: "POST",
                         success: function (result) {
                             if (result == 1) {
                                 $('#myModal').modal('toggle')
@@ -211,7 +211,7 @@
                 var Unit_Price = $("#Unit_Pricename").val();
                 var Stock = $("#Stockname").val();
                 $.ajax({
-                    url: "/BookStore/Update",
+                    url: url + "/api/Books",
                     data: {
                         "Bid": Bid,
                         "Title": Title,
@@ -221,10 +221,10 @@
                         "Unit_Price": Unit_Price,
                         "Stock": Stock
                     },
-                    dataType: "json",
-                    type: "post",
+                    //dataType: "json",
+                    type: "put",
                     success: function (result) {
-                        if (result == 1) {
+                        if (result>0) {
                             alert("修改成功！");
                             window.location.href = "/BookStore/Index";
                         } else {
@@ -234,28 +234,13 @@
                 })
             })
             //查询所有书籍信息
-            //$.ajax({
-            //    url: "/BookStore/Select",
-            //    data: {},
-            //    dataType: "json",
-            //    type: "post",
-            //    success: function (refult) {
-            //        $("#ListTb tr:gt(0)").remove();
-            //        for (var i = 0; i < refult.Data.length; i++) {
-            //            $("#ListTb").append("<tr><td>" + refult.Data[i].Bid +
-            //                "</td><td>" + refult.Data[i].Title + "</td><td>" +
-            //                refult.Data[i].BtidType + "</td><td>" + refult.Data[i].Warehousing +
-            //                "</td><td>" + refult.Data[i].Borrowing_price + "</td><td>" + refult.Data[i].Unit_Price +
-            //                "</td><td>" + refult.Data[i].Stock + "</td><td><a class='delete' data-id=" + refult.Data[i].Bid + " href='#'>删除</a></td><td><a class='xiugai'  data-id=" + refult.Data[i].Bid + " >修改</a></td><tr>");
-            //        }
-            //    }
-            //})
             $.ajax({
-                url: "/BookStore/sel",
-                type: "post",
-                dataType: "json",
+                url: url + "/api/Books",
                 data: { "PageIndex": 0, "PageSize": 3 },
+                //dataType: "json",
+                type: "get",
                 success: function (refult) {
+                    $("#ListTb tr:gt(0)").remove();
                     if (refult != null) {
                         $("#dataList").tmpl(refult).appendTo('#ListTb');
                         var setTotalCount = refult.Total;
@@ -269,8 +254,8 @@
                                 //回调函数
                                 //alert(page);
                                 $.ajax({
-                                    url: "/BookStore/sel",
-                                    type: "post",
+                                    url: url + "/api/Books",
+                                    type: "get",
                                     dataType: "json",
                                     data: { "PageIndex": page, "PageSize": 3 },
                                     success: function (refult1) {
@@ -279,10 +264,51 @@
                                     }
                                 })
                             }
+                            //for (var i = 0; i < refult.Data.length; i++) {
+                            //    $("#ListTb").append("<tr><td>" + refult.Data[i].Bid +
+                            //        "</td><td>" + refult.Data[i].Title + "</td><td>" +
+                            //        refult.Data[i].BtidType + "</td><td>" + refult.Data[i].Warehousing +
+                            //        "</td><td>" + refult.Data[i].Borrowing_price + "</td><td>" + refult.Data[i].Unit_Price +
+                            //        "</td><td>" + refult.Data[i].Stock + "</td><td><a class='delete' data-id=" + refult.Data[i].Bid + " href='#'>删除</a></td><td><a class='xiugai'  data-id=" + refult.Data[i].Bid + " >修改</a></td><tr>");
+                            //}
+
                         })
                     }
                 }
             })
+            //$.ajax({
+            //    url: "/BookStore/Select",
+            //    type: "post",
+            //    dataType: "json",
+            //    data: { "PageIndex": 0, "PageSize": 3 },
+            //    success: function (refult) {
+            //        if (refult != null) {
+            //            $("#dataList").tmpl(refult).appendTo('#ListTb');
+            //            var setTotalCount = refult.Total;
+            //            $('#box').paging({
+            //                initPageNo: 1, // 初始页码
+            //                totalPages: refult.TotalPages, //总页数
+            //                totalCount: '合计' + setTotalCount + '条数据', // 条目总数
+            //                slideSpeed: 600, // 缓动速度。单位毫秒
+            //                jump: true, //是否支持跳转
+            //                callback: function (page) {
+            //                    //回调函数
+            //                    //alert(page);
+            //                    $.ajax({
+            //                        url: "/BookStore/Select",
+            //                        type: "post",
+            //                        dataType: "json",
+            //                        data: { "PageIndex": page, "PageSize": 3 },
+            //                        success: function (refult1) {
+            //                            $("#ListTb tr:gt(0)").remove();
+            //                            $("#dataList").tmpl(refult1).appendTo('#ListTb');
+            //                        }
+            //                    })
+            //                }
+            //            })
+            //        }
+            //    }
+            //})
             $(".meun-item").click(function () {
                 $(".meun-item").removeClass("meun-item-active");
                 $(this).addClass("meun-item-active");
@@ -669,7 +695,7 @@
                                     success: function (result) {
 
                                         var myChart1 = echarts.init(document.getElementById('main1'));
-                                      
+
                                         var option = {
                                             title: {
                                                 text: '访问省份比例图',

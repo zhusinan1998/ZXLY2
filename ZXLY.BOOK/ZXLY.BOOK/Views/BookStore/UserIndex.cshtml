@@ -20,6 +20,9 @@
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/HTstyle/js/bootstrap.min.js"></script>
     <script src="~/HTstyle/jquery.cookie.js"></script>
+    <script src="~/HTstyle/js/sortable.js"></script>
+    <script src="~/Scripts/jquery.tmpl.js"></script>
+    <script src="~/Scripts/paging.js"></script>
     <script>
         $(function () {
             $("#ListTb").on("click", "a", function () {
@@ -35,7 +38,7 @@
                             if (rest > 0) {
                                 alert("购买成功！")
                                 window.location.href = "/BookStore/UserIndex";
-                            } else if (rest==0) {
+                            } else if (rest == 0) {
                                 alert("购买失败！")
                             } else if (rest == -1) {
                                 alert("该书书籍库存不足，请选择其他书籍！");
@@ -50,9 +53,9 @@
                         type: "post",
                         dataType: "json",
                         success: function (rest) {
-                            if (rest ==0) {
+                            if (rest == 0) {
                                 alert("您的借阅已达上限！")
-                            } else if (rest.shu==1) {
+                            } else if (rest.shu == 1) {
                                 alert("借阅成功！，您的归还日期为：" + rest.data);
                                 window.location.href = "/BookStore/UserIndex";
                             } else if (rest == -1) {
@@ -63,19 +66,52 @@
                 }
             })
             var form = $(this);
+            //$.ajax({
+            //    url: "/BookStore/Select",
+            //    data: {},
+            //    dataType: "json",
+            //    type: "post",
+            //    success: function (refult) {
+            //        $("#ListTb tr:gt(0)").remove();
+            //        for (var i = 0; i < refult.Data.length; i++) {
+            //            $("#ListTb").append("<tr><td>" + refult.Data[i].Bid +
+            //                "</td><td>" + refult.Data[i].Title + "</td><td>" +
+            //                refult.Data[i].BtidType + "</td><td>" + refult.Data[i].Warehousing +
+            //                "</td><td>" + refult.Data[i].Borrowing_price + "</td><td>" + refult.Data[i].Unit_Price +
+            //                "</td><td>" + refult.Data[i].Stock + "</td><td><a class='goumai' data-id=" + refult.Data[i].Bid + " href='#'>购买</a></td><td><a class='jieyue' data-id=" + refult.Data[i].Bid + " href='#'>借阅</a><tr>");
+            //        }
+            //    }
+            //})
             $.ajax({
-                url: "/BookStore/Select",
-                data: {},
-                dataType: "json",
+                url: "/BookStore/sel",
                 type: "post",
+                dataType: "json",
+                data: { "PageIndex": 0, "PageSize": 3 },
                 success: function (refult) {
-                    $("#ListTb tr:gt(0)").remove();
-                    for (var i = 0; i < refult.Data.length; i++) {
-                        $("#ListTb").append("<tr><td>" + refult.Data[i].Bid +
-                            "</td><td>" + refult.Data[i].Title + "</td><td>" +
-                            refult.Data[i].BtidType + "</td><td>" + refult.Data[i].Warehousing +
-                            "</td><td>" + refult.Data[i].Borrowing_price + "</td><td>" + refult.Data[i].Unit_Price +
-                            "</td><td>" + refult.Data[i].Stock + "</td><td><a class='goumai' data-id=" + refult.Data[i].Bid + " href='#'>购买</a></td><td><a class='jieyue' data-id=" + refult.Data[i].Bid + " href='#'>借阅</a><tr>");
+                    if (refult != null) {
+                        $("#dataList").tmpl(refult).appendTo('#ListTb');
+                        var setTotalCount = refult.Total;
+                        $('#box').paging({
+                            initPageNo: 1, // 初始页码
+                            totalPages: refult.TotalPages, //总页数
+                            totalCount: '合计' + setTotalCount + '条数据', // 条目总数
+                            slideSpeed: 600, // 缓动速度。单位毫秒
+                            jump: true, //是否支持跳转
+                            callback: function (page) {
+                                //回调函数
+                                //alert(page);
+                                $.ajax({
+                                    url: "/BookStore/sel",
+                                    type: "post",
+                                    dataType: "json",
+                                    data: { "PageIndex": page, "PageSize": 3 },
+                                    success: function (refult1) {
+                                        $("#ListTb tr:gt(0)").remove();
+                                        $("#dataList").tmpl(refult1).appendTo('#ListTb');
+                                    }
+                                })
+                            }
+                        })
                     }
                 }
             })
@@ -200,7 +236,7 @@
                                             <input id="Button1" type="button" value="查询" />
                                         </div>
 
-                                        <table id="ListTb" class="table table-bordered">
+                                        <table id="ListTb" class="table table-bordered" style="height:150px">
                                             <tr>
                                                 <th>
                                                     书籍编号
@@ -228,7 +264,40 @@
                                                 </th>
                                             </tr>
                                         </table>
-                                        <div class="pagebox" style="height:30px;" id="box"></div>
+                                        <div class="pagebox" style="height:30px;margin:0 auto;width:850px;" id="box"></div>
+                                        <div>
+                                            <script id="dataList" type="text/x-jquery-tmpl">
+                                                {{each Data}}
+                                                <tr>
+                                                    <td>
+                                                        ${Bid}
+                                                    </td>
+                                                    <td>
+                                                        ${Title}
+                                                    </td>
+                                                    <td>
+                                                        ${BtidType}
+                                                    </td>
+                                                    <td>
+                                                        ${Warehousing}
+                                                    </td>
+                                                    <td>
+                                                        ${Borrowing_price}
+                                                    </td>
+                                                    <td>
+                                                        ${Unit_Price}
+                                                    </td>
+                                                    <td>
+                                                        ${Stock}
+                                                    </td>
+                                                    <td>
+                                                        <a class="goumai" data-id=${Bid}>购买</a>
+                                                        <a class="jeiyue" data-id=${Bid}>借阅</a>
+                                                    </td>
+                                                </tr>
+                                                {{/each}}
+                                            </script>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

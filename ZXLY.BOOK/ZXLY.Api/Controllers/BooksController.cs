@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HPIT.Data.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -18,7 +19,8 @@ namespace ZXLY.Api.Controllers
         public object Get()
         {
             Book book = new Book();
-            var data = new { Data = book.Select() };
+            List<Book_information> list = book.Select();
+            var data = new { Data = list };
             return data;
         }
         /// <summary>
@@ -27,7 +29,7 @@ namespace ZXLY.Api.Controllers
         /// <param name="bookinf">实体类</param>
         /// <returns></returns>
         [HttpPost]
-        public object Add(Book_information bookinf)
+        public int Post(Book_information bookinf)
         {
             return Book.Insert(bookinf);
         }
@@ -37,7 +39,7 @@ namespace ZXLY.Api.Controllers
         /// <param name="bookinf">实体类</param>
         /// <returns></returns>
         [HttpPut]
-        public object Update(Book_information bookinf)
+        public int Put(Book_information bookinf)
         {
             Book book = new Book();
             return book.Update(bookinf);
@@ -47,8 +49,8 @@ namespace ZXLY.Api.Controllers
         /// </summary>
         /// <param name="Bid">书籍编号</param>
         /// <returns></returns>
-        [HttpDelete]
-        public object Delete(int Bid)
+        //[HttpDelete]
+        public int Delete(int Bid)
         {
             Book book = new Book();
             return book.Delete(Bid);

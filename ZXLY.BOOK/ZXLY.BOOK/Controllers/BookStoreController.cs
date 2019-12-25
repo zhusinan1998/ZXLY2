@@ -98,7 +98,7 @@ namespace ZXLY.BOOK.Controllers
                        }).ToList().Where(m => m.user.Id == id);
             JsonResult json = new JsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return new DeluxeJsonResult(new { Data = sel }, "yyyy-MM-dd");
+            return new DeluxeJsonResult(new { Data = sel }, "yyyy-MM-dd HH:mm");
         }
         /// <summary>
         /// 查询借阅记录
@@ -121,7 +121,7 @@ namespace ZXLY.BOOK.Controllers
                        }).ToList().Where(m => m.user.Id == id);
             JsonResult json = new JsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return new DeluxeJsonResult(new { Data = sel }, "yyyy-MM-dd");
+            return new DeluxeJsonResult(new { Data = sel }, "yyyy-MM-dd HH:mm");
         }
         /// <summary>
         /// 添加购买记录
@@ -140,7 +140,7 @@ namespace ZXLY.BOOK.Controllers
             }
             else
             {
-                var time = DateTime.Now.ToString("yyyy-MM-dd");
+                var time = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
                 Sales_list sales = new Sales_list()
                 {
                     Bid = Bid,
@@ -176,12 +176,12 @@ namespace ZXLY.BOOK.Controllers
             else
             {
                 var time = DateTime.Now;//.ToString("yyyy-MM-dd");
-                var time2 = time.AddDays(31).ToString("yyyy-MM-dd");
+                var time2 = time.AddDays(31).ToString("yyyy-MM-dd HH:mm");
                 Borrowing_records bo = new Borrowing_records()
                 {
                     Bid = Bid,
                     Id = id,
-                    Lend_time = Convert.ToDateTime(time.ToString("yyyy-MM-dd")),
+                    Lend_time = Convert.ToDateTime(time.ToString("yyyy-MM-dd HH:mm")),
                     Return_time = Convert.ToDateTime(time2)
                 };
                 if (list.Count > 9)
@@ -216,7 +216,7 @@ namespace ZXLY.BOOK.Controllers
             JsonResult json = new JsonResult();
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
             //var json = new {  };
-            return new DeluxeJsonResult(new { data = id }, "yyyy-MM-dd");
+            return new DeluxeJsonResult(new { data = id }, "yyyy-MM-dd HH:mm");
         }
         //[HttpPost]
         /// <summary>
@@ -256,31 +256,21 @@ namespace ZXLY.BOOK.Controllers
                 return Json(0);
             }
         }
-
+        /// <summary>
+        /// 分页查询书籍信息
+        /// </summary>
+        /// <param name="searchmodel"></param>
+        /// <param name="Btid"></param>
+        /// <param name="Title"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult sel(SearchModel<Book_information> searchmodel,int Btid=0, string Title = "")
         {
             int total = 0;
-            //SearchModel<FileModel> search = new SearchModel<FileModel>();
-            var list =Book.selbookinfo(searchmodel, out total,Btid, Title);
+            var list =Book.selbookinfo(searchmodel,out total,Btid, Title);
             JsonResult json = new JsonResult();
-            //json.Data = new { Data = list };
             json.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            //return new DeluxeJsonResult(new { Data = list }, "yyyy-MM-dd HH: mm");
-            //var result = from book in list
-            //             select new
-            //             {
-            //                 Bid=book.Bid,
-            //                 Title=book.Title,
-            //                 Btid=book.Btid,
-            //                 Warehousing=book.Warehousing,
-            //                 Borrowing_price=book.Borrowing_price,
-            //                 Unit_Price=book.Unit_Price,
-            //                 Stock=book.Stock
-            //             };
-            //total = list.Count;
             var totalPages = total % searchmodel.PageSize == 0 ? total / searchmodel.PageSize : total / searchmodel.PageSize + 1;
-            //var pagedata = list.Skip((searchmodel.PageIndex - 1) * searchmodel.PageSize).Take(searchmodel.PageSize);
             return new DeluxeJsonResult(new { Data = list, Total = total, TotalPages = totalPages }, "yyyy-MM-dd HH:mm");
         }
 
